@@ -11,9 +11,9 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 [image1]: ./imagens/imagem1.jpg
-[image2]: ./output_images/test1.JPG
-[image3]: ./output_images/test3.JPG
-[image4]: ./output_images/test5.JPG
+[image2]: ./output_images/test1.jpg
+[image3]: ./output_images/test3.jpg
+[image4]: ./output_images/test5.jpg
 [image5]: ./imagens/imagem5.JPG
 [video1]: ./project_video_output.mp4
 
