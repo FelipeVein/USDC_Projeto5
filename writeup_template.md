@@ -33,6 +33,8 @@ You're reading it!
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
+
+
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
@@ -48,23 +50,58 @@ Here is an example using the `YCrCb` color space and HOG parameters of `orientat
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters and...
+I tried several different combinations of parameters iteratively and the algorithm returned that the following ones were the best:
+
+* color_space = 'YCrCb'
+* orient = 9 
+* pix_per_cell = 8 
+* cell_per_block = 2
+* hog_channel = "ALL" 
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using...
+I trained a linear SVM (fourth code cell) using all of the following three features:
+
+* spatial_feat = True 
+* hist_feat = True 
+* hog_feat = True 
 
 ### Sliding Window Search
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+The sliding window search algorithm can be seen in the fifth code cell. I decided both the scales to search and the overlap by trial and error. With a small overlap, the pipeline does not work, mainly because of the heatmap. 
+I chose three different scales to search (also in the fifth code cell): 
+* Sliding window x limits
+    sw_x_limits = [
+    [None, None],
+    [None, None],
+    [None, None]
+    ]
+* Sliding window y limits
+    sw_y_limits = [
+    [400, 640],
+    [400, 640],
+    [350, 640]
+    ]
+* Sliding window sizes
+    sw_window_size = [
+    (120, 120),
+    (90, 90),
+    (60, 60)
+    ]
+* Sliding window overlaps
+    sw_overlap = [
+    (0.5, 0.5),
+    (0.5, 0.5),
+    (0.5, 0.5)
+    ]
 
 ![alt text][image3]
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Here are some example images:
 
 ![alt text][image4]
 ---
@@ -72,7 +109,7 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video_output.mp4)
 
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
