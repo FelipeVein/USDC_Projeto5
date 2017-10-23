@@ -10,12 +10,12 @@ The goals / steps of this project are the following:
 * Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[image1]: ./imagens/car_not_car.png
-[image2]: ./imagens/HOG_example.jpg
-[image3]: ./imagens/sliding_windows.jpg
-[image4]: ./imagens/sliding_window.jpg
-[image5]: ./imagens/heat.png
-[video1]: ./project_video.mp4
+[image1]: ./imagens/imagem1.jpg
+[image2]: ./output_images/test1.JPG
+[image3]: ./output_images/test3.JPG
+[image4]: ./output_images/test5.JPG
+[image5]: ./imagens/imagem5.JPG
+[video1]: ./project_video_output.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -33,18 +33,15 @@ You're reading it!
 
 
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
+The code for this step is contained in the first four code cells of the IPython notebook.
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
 ![alt text][image1]
 
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
+Then, I tried several different color_spaces to extract HOG features, and I found out that 'YCrCb' works better than the others.
 
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
-
-
-![alt text][image2]
+To extract the hog features, I just used the function "get_hog_features()", presented in the first code cell. This function is exactly the same as the one shown in the course.
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
@@ -74,19 +71,19 @@ I chose three different scales to search (also in the fifth code cell):
     sw_x_limits = [
     [None, None],
     [None, None],
-    [None, None]
+    [40, image.shape[0] - 40]
     ]
 * Sliding window y limits
     sw_y_limits = [
     [400, 640],
-    [400, 640],
-    [350, 640]
+    [400, 600],
+    [350, 600]
     ]
 * Sliding window sizes
     sw_window_size = [
     (120, 120),
-    (90, 90),
-    (60, 60)
+    (100, 100),
+    (80, 80)
     ]
 * Sliding window overlaps
     sw_overlap = [
@@ -95,12 +92,13 @@ I chose three different scales to search (also in the fifth code cell):
     (0.5, 0.5)
     ]
 
-![alt text][image3]
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 Here are some example images:
 
+![alt text][image2]
+![alt text][image3]
 ![alt text][image4]
 ---
 
